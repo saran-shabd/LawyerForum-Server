@@ -15,8 +15,6 @@ let facebookAppAccessToken = '2110899535664683|Muk_nBoJuqWZt4HiC5uTU8MmRw0';
 // secret of json-web-token access tokens
 const jwtAppSecret = 'X9QUAdwn5CFhKIkzpYJm';
 
-/* UTILITY METHODS */
-
 module.exports = {
   dbUsername,
   dbPassword,
