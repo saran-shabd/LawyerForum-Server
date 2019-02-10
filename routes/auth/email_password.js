@@ -156,10 +156,17 @@ router.post('/login', (request, response) => {
     return response.status(400).json({ message: 'invalid email' });
 
   // check if email is already registered
-  User.findOne({ email, type: 'email/password' })
+  User.findOne({ email })
     .then(userSnap => {
       if (userSnap) {
         // email is registered
+
+        // check for registered user's account type
+        if (userSnap.type !== 'email/password')
+          return response.status(400).json({
+            message:
+              'user already registered, but not using email/password services'
+          });
 
         // check for password match
         bcrypt

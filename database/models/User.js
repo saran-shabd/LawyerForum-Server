@@ -4,6 +4,11 @@ const mongoose = require('mongoose'),
   { Schema } = require('mongoose');
 
 const UserModel = new Schema({
+  user_id: {
+    // only for facebook users
+    type: Number,
+    default: null
+  },
   name: {
     type: String,
     required: true
@@ -16,7 +21,7 @@ const UserModel = new Schema({
   password: {
     type: String,
     required: true,
-    default: true
+    default: null
   },
   type: {
     type: String,
