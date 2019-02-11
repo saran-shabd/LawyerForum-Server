@@ -120,16 +120,24 @@ router.post('/login', (request, response) => {
                           const { _id } = userSnap;
 
                           // resetting password field to null
-                          User.findOneAndUpdate({ _id }, { password: null });
-
-                          // return user details to frontend
-                          response.status(200).json({
-                            _id,
-                            user_id: id,
-                            email,
-                            name,
-                            accessToken
-                          });
+                          User.findOneAndUpdate({ _id }, { password: null })
+                            .then(() => {
+                              // return user details to frontend
+                              response.status(200).json({
+                                _id,
+                                user_id: id,
+                                email,
+                                name,
+                                accessToken
+                              });
+                            })
+                            .catch(error => {
+                              // could not restore user password
+                              console.log(error);
+                              response.status(500).json({
+                                message: 'could not restore user password'
+                              });
+                            });
                         } else {
                           // user not found in database after storage
                           console.log(
