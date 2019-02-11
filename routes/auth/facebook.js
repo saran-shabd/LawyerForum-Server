@@ -101,6 +101,8 @@ router.post('/login', (request, response) => {
                   name,
                   email,
                   accessToken,
+                  loginStatus: true,
+                  password: 'temp', // since, password field is required
                   type: 'facebook',
                   registrationDate: Date.now()
                 };
@@ -116,6 +118,9 @@ router.post('/login', (request, response) => {
                         if (userSnap) {
                           // extract _id from the user obejct
                           const { _id } = userSnap;
+
+                          // resetting password field to null
+                          User.findOneAndUpdate({ _id }, { password: null });
 
                           // return user details to frontend
                           response.status(200).json({
